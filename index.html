@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لحظة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@700&family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --o: #F2771A;
+      --o2: #ff9540;
+      --dark: #080808;
+      --card: rgba(255,255,255,0.04);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--dark);
+      font-family: 'Tajawal', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════
+       NOISE OVERLAY
+    ══════════════════════════════ */
+    body::after {
+      content:'';
+      position:fixed; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events:none;
+      z-index:9999;
+    }
+
+    /* ══════════════════════════════
+       SECTION 1 — SPLIT HERO
+    ══════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--o);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: clamp(40px,8vw,100px);
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+      z-index: 2;
+    }
+
+    .hero-left::before {
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.15) 0%, transparent 60%);
+      pointer-events:none;
+    }
+
+    .logo-wrap { position:relative; z-index:1; }
+
+    .logo-main {
+      font-family: 'Aref Ruqaa Ink', serif;
+      font-size: clamp(90px, 16vw, 200px);
+      color: #fff;
+      line-height: 0.85;
+      display: block;
+      transform: rotate(-4deg);
+      text-shadow: 0 8px 60px rgba(0,0,0,0.2);
+    }
+
+    .logo-dots {
+      font-family: 'Aref Ruqaa Ink', serif;
+      font-size: clamp(30px, 6vw, 70px);
+      color: rgba(255,255,255,0.8);
+      display: block;
+      text-align: right;
+      transform: rotate(-4deg);
+      animation: dotBlink 2s ease-in-out infinite;
+    }
+
+    .hero-tagline {
+      margin-top: 36px;
+      font-size: clamp(13px,2vw,17px);
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-right: 2px solid rgba(255,255,255,0.5);
+      padding-right: 16px;
+      position: relative; z-index:1;
+    }
+
+    .hero-right {
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px 60px 80px;
+      position: relative;
+    }
+
+    /* Giant ghost text behind right side */
+    .hero-right::before {
+      content: 'لحظة';
+      font-family: 'Aref Ruqaa Ink', serif;
+      font-size: 350px;
+      color: rgba(242,119,26,0.04);
+      position:absolute;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%) rotate(10deg);
+      pointer-events:none;
+      white-space:nowrap;
+      line-height:1;
+    }
+
+    .hero-right-content { position:relative; z-index:1; width:100%; }
+
+    .coming-label {
+      font-size: clamp(11px,1.5vw,13px);
+      letter-spacing: 4px;
+      color: var(--o);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .coming-label::before {
+      content:'';
+      width:30px; height:1px;
+      background:var(--o);
+    }
+
+    .hero-desc {
+      font-size: clamp(16px,2.2vw,22px);
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+    }
+
+    .hero-desc .hl {
+      font-family: 'Aref Ruqaa Ink', serif;
+      color: var(--o);
+      font-size: 1.3em;
+      vertical-align: middle;
+    }
+
+    /* ══════════════════════════════
+       COUNTDOWN STRIP
+    ══════════════════════════════ */
+    .countdown-strip {
+      background: #0f0f0f;
+      border-top: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+      padding: 50px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-strip::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg, transparent, var(--o), transparent);
+    }
+
+    .cd-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(10px,4vw,50px);
+      flex-wrap: wrap;
+    }
+
+    .cd-item { text-align:center; }
+
+    .cd-num {
+      font-size: clamp(42px,9vw,88px);
+      font-weight: 900;
+      color: var(--white, #fff);
+      line-height:1;
+      transition: color 0.15s, transform 0.15s;
+      display:block;
+    }
+    .cd-num.flash { color: var(--o); transform: scale(1.1); }
+
+    .cd-unit {
+      font-size: clamp(10px,1.5vw,13px);
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      margin-top: 6px;
+      display:block;
+    }
+
+    .cd-sep {
+      font-size: clamp(30px,6vw,64px);
+      font-weight: 900;
+      color: var(--o);
+      opacity: 0.35;
+      margin-bottom: 20px;
+      animation: sepBlink 1s ease-in-out infinite;
+    }
+
+    /* ══════════════════════════════
+       TEASER ZIGZAG
+    ══════════════════════════════ */
+    .teaser-wrap {
+      padding: 120px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tease-row {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      margin-bottom: 100px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .tease-row.visible { opacity:1; transform:translateY(0); }
+
+    .tease-row:nth-child(even) { flex-direction: row-reverse; }
+
+    .tease-num {
+      font-size: clamp(80px,14vw,160px);
+      font-weight: 900;
+      color: rgba(242,119,26,0.08);
+      line-height: 1;
+      flex-shrink: 0;
+      width: clamp(80px,14vw,160px);
+      text-align:center;
+    }
+
+    .tease-text { flex:1; }
+
+    .tease-text p {
+      font-size: clamp(18px,2.8vw,28px);
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .tease-text p strong { color:#fff; font-weight:700; }
+
+    .lahza {
+      font-family: 'Aref Ruqaa Ink', serif;
+      font-size: 1.35em;
+      color: var(--o);
+      transform: rotate(-2deg);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+      margin: 0 3px;
+    }
+
+    /* ══════════════════════════════
+       MARQUEE BAND
+    ══════════════════════════════ */
+    .marquee-band {
+      background: var(--o);
+      padding: 18px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-inner span {
+      font-family: 'Aref Ruqaa Ink', serif;
+      font-size: clamp(22px,4vw,36px);
+      color: rgba(255,255,255,0.85);
+      margin: 0 40px;
+    }
+
+    .marquee-inner span.dot {
+      color: rgba(255,255,255,0.4);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    /* ══════════════════════════════
+       FORM SECTION
+    ══════════════════════════════ */
+    .form-section {
+      padding: 120px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-section::before {
+      content:'';
+      position:absolute;
+      width:600px; height:600px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(242,119,26,0.08) 0%, transparent 70%);
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+
+    .form-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+      z-index:1;
+    }
+
+    .form-eyebrow {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--o);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .form-title {
+      font-family: 'Aref Ruqaa Ink', serif;
+      font-size: clamp(46px,10vw,90px);
+      color: #fff;
+      text-align: center;
+      transform: rotate(-2deg);
+      display: block;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .form-sub {
+      text-align: center;
+      font-size: clamp(15px,2.2vw,18px);
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+      margin-bottom: 50px;
+      line-height: 1.7;
+    }
+
+    .form-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: clamp(30px,5vw,50px);
+      backdrop-filter: blur(10px);
+    }
+
+    .field-wrap { margin-bottom: 20px; }
+
+    .field-label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .field-row { position: relative; }
+
+    .field-row input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #fff;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+      direction: rtl;
+    }
+
+    .field-row input:focus {
+      border-color: var(--o);
+      background: rgba(242,119,26,0.06);
+    }
+
+    .field-row input::placeholder { color: rgba(255,255,255,0.2); }
+
+    /* Phone with prefix */
+    .phone-wrap {
+      display: flex;
+      gap: 10px;
+    }
+
+    .phone-prefix {
+      background: rgba(242,119,26,0.12);
+      border: 1px solid rgba(242,119,26,0.25);
+      border-radius: 12px;
+      padding: 16px 16px;
+      color: var(--o);
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .phone-prefix .flag { font-size: 18px; }
+
+    .phone-wrap input {
+      flex: 1;
+      direction: ltr;
+      letter-spacing: 1px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--o);
+      border: none;
+      border-radius: 14px;
+      padding: 18px;
+      color: #fff;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      letter-spacing: 1px;
+    }
+
+    .submit-btn:hover {
+      background: var(--o2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(242,119,26,0.35);
+    }
+
+    .form-note {
+      text-align:center;
+      font-size:12px;
+      color:rgba(255,255,255,0.2);
+      margin-top:20px;
+      letter-spacing:1px;
+    }
+
+    /* Success state */
+    .success-msg {
+      display:none;
+      text-align:center;
+      padding:40px;
+    }
+    .success-msg .s-icon {
+      font-family:'Aref Ruqaa Ink',serif;
+      font-size:80px;
+      color:var(--o);
+      display:block;
+      margin-bottom:10px;
+    }
+    .success-msg p {
+      font-size:20px;
+      color:rgba(255,255,255,0.7);
+      font-weight:300;
+    }
+
+    /* ══════════════════════════════
+       FOOTER STAMP
+    ══════════════════════════════ */
+    .footer {
+      background: var(--o);
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-ghost {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) rotate(-8deg);
+      font-family:'Aref Ruqaa Ink',serif;
+      font-size:clamp(200px,40vw,500px);
+      color:rgba(255,255,255,0.05);
+      pointer-events:none;
+      white-space:nowrap;
+      line-height:1;
+    }
+
+    .footer-word {
+      font-family:'Aref Ruqaa Ink',serif;
+      font-size: clamp(60px,14vw,140px);
+      color:#fff;
+      display:block;
+      transform:rotate(-3deg);
+      position:relative; z-index:1;
+    }
+
+    .footer-sub {
+      font-size:clamp(13px,2vw,17px);
+      color:rgba(255,255,255,0.75);
+      font-weight:300;
+      letter-spacing:3px;
+      position:relative; z-index:1;
+      margin-top:10px;
+    }
+
+    /* ══════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════ */
+    @keyframes dotBlink {
+      0%,100%{opacity:1} 50%{opacity:0.25}
+    }
+    @keyframes sepBlink {
+      0%,100%{opacity:0.35} 50%{opacity:0.08}
+    }
+    @keyframes marquee {
+      from{transform:translateX(0)} to{transform:translateX(-50%)}
+    }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media(max-width:700px){
+      .hero { grid-template-columns:1fr; }
+      .hero-left { clip-path:polygon(0 0,100% 0,100% 88%,0 100%); padding:60px 30px; }
+      .hero-right { padding:60px 30px; }
+      .tease-row, .tease-row:nth-child(even) {
+        flex-direction: column !important;
+        gap: 20px;
+        margin-bottom: 60px;
+      }
+      .tease-num { width:100%; font-size:80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="logo-wrap">
+      <span class="logo-main">لحظة</span>
+      <span class="logo-dots">...</span>
+    </div>
+    <p class="hero-tagline">شيء ما على وشك أن يحدث</p>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-content">
+      <div class="coming-label">قريباً جداً</div>
+      <p class="hero-desc">
+        ثمة <span class="lahza">لحظة</span> تنتظرك —<br>
+        لا نعرف شكلها بعد،<br>
+        لكننا نعرف أنها ستكون <strong>مختلفة.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ COUNTDOWN ════ -->
+<div class="countdown-strip">
+  <div class="cd-inner">
+    <div class="cd-item">
+      <span class="cd-num" id="days">00</span>
+      <span class="cd-unit">يوم</span>
+    </div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item">
+      <span class="cd-num" id="hours">00</span>
+      <span class="cd-unit">ساعة</span>
+    </div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item">
+      <span class="cd-num" id="minutes">00</span>
+      <span class="cd-unit">دقيقة</span>
+    </div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item">
+      <span class="cd-num" id="seconds">00</span>
+      <span class="cd-unit">ثانية</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MARQUEE ════ -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+    <span>لحظة</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ════ TEASER ════ -->
+<section class="teaser-wrap">
+
+  <div class="tease-row">
+    <div class="tease-num">01</div>
+    <div class="tease-text">
+      <p>ثمة <span class="lahza">لحظة</span> واحدة في حياة كل إنسان —
+      تغيّر فيها <strong>كل شيء.</strong>
+      ليس لأنها كانت ضخمة، بل لأنها كانت <em>في الوقت المناسب تماماً.</em></p>
+    </div>
+  </div>
+
+  <div class="tease-row">
+    <div class="tease-num">02</div>
+    <div class="tease-text">
+      <p>ليست كل <span class="lahza">لحظة</span> تُعلن عن نفسها.
+      بعضها يأتي هادئاً — ثم تلتفت ذات يوم لتدرك
+      أنها كانت <strong>البداية.</strong></p>
+    </div>
+  </div>
+
+  <div class="tease-row">
+    <div class="tease-num">03</div>
+    <div class="tease-text">
+      <p>ماذا لو كانت هذه <span class="lahza">لحظة</span> من تلك اللحظات؟
+      ماذا لو أخبرناك أن كل شيء تنتظره
+      <strong>يتشكّل الآن، في الخفاء؟</strong></p>
+    </div>
+  </div>
+
+  <div class="tease-row">
+    <div class="tease-num">04</div>
+    <div class="tease-text">
+      <p>لا نقول الكثير الآن. لأن بعض الأشياء
+      تستحق <span class="lahza">لحظة</span> واحدة فقط —
+      <strong>لحظة تراها بنفسك.</strong>
+      كن أول من يعرف.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════ FORM ════ -->
+<section class="form-section">
+  <div class="form-inner">
+    <p class="form-eyebrow">كن أول من يعلم</p>
+    <span class="form-title">لحظة</span>
+    <p class="form-sub">
+      سجّل بياناتك وستصلك <span class="lahza" style="font-size:1.2em">لحظة</span> الإطلاق<br>
+      قبل الجميع
+    </p>
+
+    <div class="form-card">
+      <form id="regForm" onsubmit="handleSubmit(event)">
+        <div class="field-wrap">
+          <label class="field-label">البريد الإلكتروني</label>
+          <div class="field-row">
+            <input type="email" placeholder="example@email.com" required autocomplete="email" dir="ltr"/>
+          </div>
+        </div>
+
+        <div class="field-wrap">
+          <label class="field-label">رقم الهاتف</label>
+          <div class="phone-wrap">
+            <div class="phone-prefix">
+              <span class="flag">🇲🇦</span>
+              +212
+            </div>
+            <input type="tel"
+              placeholder="6 XX XX XX XX"
+              pattern="[0-9]{9}"
+              maxlength="9"
+              required
+              autocomplete="tel"
+              inputmode="numeric"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">أعلمني عند الإطلاق ✦</button>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <span class="s-icon">لحظة</span>
+        <p>شكراً! ستكون أول من يعرف.</p>
+      </div>
+
+      <p class="form-note">لن نشارك بياناتك مع أي طرف ثالث</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  <div class="footer-ghost">لحظة</div>
+  <span class="footer-word">لحظة...</span>
+  <p class="footer-sub">ابقَ قريباً — لحظة واحدة ستكفي</p>
+</footer>
+
+<script>
+  // ── Countdown ──────────────────────────────
+  const eventDate = new Date('2026-04-15T20:00:00');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function flash(id, val){
+    const el = document.getElementById(id);
+    const v  = pad(val);
+    if(el.textContent !== v){
+      el.classList.add('flash');
+      el.textContent = v;
+      setTimeout(()=>el.classList.remove('flash'), 250);
+    }
+  }
+
+  function tick(){
+    const diff = eventDate - new Date();
+    if(diff <= 0){ ['days','hours','minutes','seconds'].forEach(id=>{document.getElementById(id).textContent='00';}); return; }
+    flash('days',    Math.floor(diff/86400000));
+    flash('hours',   Math.floor((diff%86400000)/3600000));
+    flash('minutes', Math.floor((diff%3600000)/60000));
+    flash('seconds', Math.floor((diff%60000)/1000));
+  }
+  tick();
+  setInterval(tick,1000);
+
+  // ── Scroll reveal ──────────────────────────
+  const rows = document.querySelectorAll('.tease-row');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.15});
+  rows.forEach(r=>io.observe(r));
+
+  // ── Form submit ────────────────────────────
+  function handleSubmit(e){
+    e.preventDefault();
+    document.getElementById('regForm').style.display='none';
+    document.getElementById('successMsg').style.display='block';
+  }
+</script>
+</body>
+</html>
