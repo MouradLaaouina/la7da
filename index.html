@@ -671,7 +671,7 @@
         <div class="field-wrap">
           <label class="field-label">البريد الإلكتروني</label>
           <div class="field-row">
-            <input type="email" placeholder="example@email.com" required autocomplete="email" dir="ltr"/>
+            <input id="regEmail" type="email" placeholder="example@email.com" required autocomplete="email" dir="ltr"/>
           </div>
         </div>
 
@@ -682,7 +682,7 @@
               <span class="flag">🇲🇦</span>
               +212
             </div>
-            <input type="tel"
+            <input id="regPhone" type="tel"
               placeholder="6 XX XX XX XX"
               pattern="[0-9]{9}"
               maxlength="9"
@@ -714,6 +714,10 @@
   <p class="footer-sub">ابقَ قريباً — لحظة واحدة ستكفي</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('YOUR_PUBLIC_KEY');
+</script>
 <script>
   // ── Countdown ──────────────────────────────
   function getNextTuesday11h() {
@@ -763,8 +767,26 @@
   // ── Form submit ────────────────────────────
   function handleSubmit(e){
     e.preventDefault();
-    document.getElementById('regForm').style.display='none';
-    document.getElementById('successMsg').style.display='block';
+    const btn = e.target.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'جاري الإرسال...';
+
+    const params = {
+      email: document.getElementById('regEmail').value,
+      phone: '+212' + document.getElementById('regPhone').value
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', params)
+      .then(function(){
+        document.getElementById('regForm').style.display='none';
+        document.getElementById('successMsg').style.display='block';
+      })
+      .catch(function(err){
+        console.error('EmailJS error:', err);
+        btn.disabled = false;
+        btn.textContent = 'أعلمني عند الإطلاق ✦';
+        alert('حدث خطأ، يرجى المحاولة مجدداً.');
+      });
   }
 </script>
 </body>
