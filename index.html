@@ -10,14 +10,15 @@
     :root {
       --o: #F2771A;
       --o2: #ff9540;
-      --dark: #080808;
-      --card: rgba(255,255,255,0.04);
+      --dark: #f7f4ef;
+      --text: #1a1005;
+      --card: rgba(0,0,0,0.03);
     }
     html { scroll-behavior: smooth; }
     body {
       background: var(--dark);
       font-family: 'Tajawal', sans-serif;
-      color: #fff;
+      color: var(--text);
       overflow-x: hidden;
     }
 
@@ -112,7 +113,7 @@
       content: 'لحظة';
       font-family: 'Aref Ruqaa Ink', serif;
       font-size: 350px;
-      color: rgba(242,119,26,0.04);
+      color: rgba(242,119,26,0.07);
       position:absolute;
       top:50%; left:50%;
       transform:translate(-50%,-50%) rotate(10deg);
@@ -143,7 +144,7 @@
       font-size: clamp(16px,2.2vw,22px);
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(255,255,255,0.7);
+      color: rgba(26,16,5,0.65);
       margin-bottom: 40px;
     }
 
@@ -158,9 +159,9 @@
        COUNTDOWN STRIP
     ══════════════════════════════ */
     .countdown-strip {
-      background: #0f0f0f;
-      border-top: 1px solid #1e1e1e;
-      border-bottom: 1px solid #1e1e1e;
+      background: #ede8e0;
+      border-top: 1px solid #d8d0c4;
+      border-bottom: 1px solid #d8d0c4;
       padding: 50px 20px;
       position: relative;
       overflow: hidden;
@@ -187,7 +188,7 @@
     .cd-num {
       font-size: clamp(42px,9vw,88px);
       font-weight: 900;
-      color: var(--white, #fff);
+      color: var(--text);
       line-height:1;
       transition: color 0.15s, transform 0.15s;
       display:block;
@@ -197,7 +198,7 @@
     .cd-unit {
       font-size: clamp(10px,1.5vw,13px);
       letter-spacing: 3px;
-      color: rgba(255,255,255,0.3);
+      color: rgba(26,16,5,0.4);
       text-transform: uppercase;
       margin-top: 6px;
       display:block;
@@ -251,10 +252,10 @@
       font-size: clamp(18px,2.8vw,28px);
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(255,255,255,0.75);
+      color: rgba(26,16,5,0.65);
     }
 
-    .tease-text p strong { color:#fff; font-weight:700; }
+    .tease-text p strong { color: var(--text); font-weight:700; }
 
     .lahza {
       font-family: 'Aref Ruqaa Ink', serif;
@@ -334,7 +335,7 @@
     .form-title {
       font-family: 'Aref Ruqaa Ink', serif;
       font-size: clamp(46px,10vw,90px);
-      color: #fff;
+      color: var(--text);
       text-align: center;
       transform: rotate(-2deg);
       display: block;
@@ -345,15 +346,15 @@
     .form-sub {
       text-align: center;
       font-size: clamp(15px,2.2vw,18px);
-      color: rgba(255,255,255,0.45);
+      color: rgba(26,16,5,0.5);
       font-weight: 300;
       margin-bottom: 50px;
       line-height: 1.7;
     }
 
     .form-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 24px;
       padding: clamp(30px,5vw,50px);
       backdrop-filter: blur(10px);
@@ -365,7 +366,7 @@
       display: block;
       font-size: 12px;
       letter-spacing: 2px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(26,16,5,0.5);
       text-transform: uppercase;
       margin-bottom: 10px;
     }
@@ -374,11 +375,11 @@
 
     .field-row input {
       width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.12);
       border-radius: 12px;
       padding: 16px 20px;
-      color: #fff;
+      color: var(--text);
       font-family: 'Tajawal', sans-serif;
       font-size: 16px;
       outline: none;
@@ -388,10 +389,10 @@
 
     .field-row input:focus {
       border-color: var(--o);
-      background: rgba(242,119,26,0.06);
+      background: rgba(242,119,26,0.05);
     }
 
-    .field-row input::placeholder { color: rgba(255,255,255,0.2); }
+    .field-row input::placeholder { color: rgba(26,16,5,0.3); }
 
     /* Phone with prefix */
     .phone-wrap {
@@ -448,7 +449,7 @@
     .form-note {
       text-align:center;
       font-size:12px;
-      color:rgba(255,255,255,0.2);
+      color:rgba(26,16,5,0.3);
       margin-top:20px;
       letter-spacing:1px;
     }
@@ -468,7 +469,7 @@
     }
     .success-msg p {
       font-size:20px;
-      color:rgba(255,255,255,0.7);
+      color:rgba(26,16,5,0.65);
       font-weight:300;
     }
 
