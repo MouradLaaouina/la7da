@@ -156,6 +156,26 @@
     }
 
     /* ══════════════════════════════
+       PAUSE ICON — HERO
+    ══════════════════════════════ */
+    .pause-icon {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      pointer-events: none;
+      animation: pauseBlink 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      filter: drop-shadow(0 0 18px rgba(244,121,32,0.55));
+    }
+
+    @keyframes pauseBlink {
+      0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+      45%       { opacity: 0.08; transform: translateX(-50%) scale(0.88); }
+      55%       { opacity: 0.08; transform: translateX(-50%) scale(0.88); }
+    }
+
+    /* ══════════════════════════════
        COUNTDOWN STRIP
     ══════════════════════════════ */
     .countdown-strip {
@@ -553,6 +573,13 @@
     </div>
     <p class="hero-tagline">شيء ما على وشك أن يحدث</p>
   </div>
+
+  <!-- Pause icon blinking -->
+  <svg class="pause-icon" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="26" cy="26" r="25" stroke="#F47920" stroke-width="2" fill="rgba(244,121,32,0.08)"/>
+    <rect x="16" y="15" width="7" height="22" rx="3.5" fill="#F47920"/>
+    <rect x="29" y="15" width="7" height="22" rx="3.5" fill="#F47920"/>
+  </svg>
 
   <div class="hero-right">
     <div class="hero-right-content">
