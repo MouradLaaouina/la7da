@@ -8,10 +8,10 @@
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
-      --o: #F2771A;
-      --o2: #ff9540;
-      --dark: #f7f4ef;
-      --text: #1a1005;
+      --o: #000000;
+      --o2: #333333;
+      --dark: #ffffff;
+      --text: #000000;
       --card: rgba(0,0,0,0.03);
     }
     html { scroll-behavior: smooth; }
@@ -113,7 +113,7 @@
       content: 'لحظة';
       font-family: 'Aref Ruqaa Ink', serif;
       font-size: 350px;
-      color: rgba(242,119,26,0.07);
+      color: rgba(0,0,0,0.06);
       position:absolute;
       top:50%; left:50%;
       transform:translate(-50%,-50%) rotate(10deg);
@@ -144,7 +144,7 @@
       font-size: clamp(16px,2.2vw,22px);
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(26,16,5,0.65);
+      color: rgba(0,0,0,0.55);
       margin-bottom: 40px;
     }
 
@@ -159,9 +159,9 @@
        COUNTDOWN STRIP
     ══════════════════════════════ */
     .countdown-strip {
-      background: #ede8e0;
-      border-top: 1px solid #d8d0c4;
-      border-bottom: 1px solid #d8d0c4;
+      background: #f0f0f0;
+      border-top: 1px solid #d0d0d0;
+      border-bottom: 1px solid #d0d0d0;
       padding: 50px 20px;
       position: relative;
       overflow: hidden;
@@ -198,7 +198,7 @@
     .cd-unit {
       font-size: clamp(10px,1.5vw,13px);
       letter-spacing: 3px;
-      color: rgba(26,16,5,0.4);
+      color: rgba(0,0,0,0.4);
       text-transform: uppercase;
       margin-top: 6px;
       display:block;
@@ -239,7 +239,7 @@
     .tease-num {
       font-size: clamp(80px,14vw,160px);
       font-weight: 900;
-      color: rgba(242,119,26,0.08);
+      color: rgba(0,0,0,0.08);
       line-height: 1;
       flex-shrink: 0;
       width: clamp(80px,14vw,160px);
@@ -252,7 +252,7 @@
       font-size: clamp(18px,2.8vw,28px);
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(26,16,5,0.65);
+      color: rgba(0,0,0,0.55);
     }
 
     .tease-text p strong { color: var(--text); font-weight:700; }
@@ -310,7 +310,7 @@
       position:absolute;
       width:600px; height:600px;
       border-radius:50%;
-      background: radial-gradient(circle, rgba(242,119,26,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0,0,0,0.04) 0%, transparent 70%);
       top:50%; left:50%;
       transform:translate(-50%,-50%);
       pointer-events:none;
@@ -346,7 +346,7 @@
     .form-sub {
       text-align: center;
       font-size: clamp(15px,2.2vw,18px);
-      color: rgba(26,16,5,0.5);
+      color: rgba(0,0,0,0.5);
       font-weight: 300;
       margin-bottom: 50px;
       line-height: 1.7;
@@ -366,7 +366,7 @@
       display: block;
       font-size: 12px;
       letter-spacing: 2px;
-      color: rgba(26,16,5,0.5);
+      color: rgba(0,0,0,0.5);
       text-transform: uppercase;
       margin-bottom: 10px;
     }
@@ -389,10 +389,10 @@
 
     .field-row input:focus {
       border-color: var(--o);
-      background: rgba(242,119,26,0.05);
+      background: rgba(0,0,0,0.04);
     }
 
-    .field-row input::placeholder { color: rgba(26,16,5,0.3); }
+    .field-row input::placeholder { color: rgba(0,0,0,0.3); }
 
     /* Phone with prefix */
     .phone-wrap {
@@ -401,8 +401,8 @@
     }
 
     .phone-prefix {
-      background: rgba(242,119,26,0.12);
-      border: 1px solid rgba(242,119,26,0.25);
+      background: rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.15);
       border-radius: 12px;
       padding: 16px 16px;
       color: var(--o);
@@ -443,13 +443,13 @@
     .submit-btn:hover {
       background: var(--o2);
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(242,119,26,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
 
     .form-note {
       text-align:center;
       font-size:12px;
-      color:rgba(26,16,5,0.3);
+      color:rgba(0,0,0,0.3);
       margin-top:20px;
       letter-spacing:1px;
     }
@@ -469,7 +469,7 @@
     }
     .success-msg p {
       font-size:20px;
-      color:rgba(26,16,5,0.65);
+      color:rgba(0,0,0,0.55);
       font-weight:300;
     }
 
