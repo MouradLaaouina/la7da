@@ -158,24 +158,32 @@
     /* ══════════════════════════════
        PAUSE ICON — HERO
     ══════════════════════════════ */
-    .logo-top-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-
     .pause-icon {
-      margin-top: 18px;
-      flex-shrink: 0;
+      position: absolute;
+      top: clamp(28px, 5vw, 52px);
+      left: clamp(28px, 5vw, 52px);
+      width: clamp(90px, 13vw, 150px);
+      height: clamp(90px, 13vw, 150px);
       pointer-events: none;
-      animation: pauseBlink 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-      filter: drop-shadow(0 0 12px rgba(255,255,255,0.35));
+      z-index: 3;
+      animation: pausePulse 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      filter: drop-shadow(0 0 24px rgba(255,255,255,0.18));
     }
 
-    @keyframes pauseBlink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      45%       { opacity: 0.07; transform: scale(0.88); }
-      55%       { opacity: 0.07; transform: scale(0.88); }
+    .pause-icon .ring-spin {
+      transform-origin: 50% 50%;
+      animation: ringRotate 9s linear infinite;
+    }
+
+    @keyframes pausePulse {
+      0%, 100% { opacity: 1;    transform: scale(1); }
+      42%       { opacity: 0.06; transform: scale(0.9); }
+      58%       { opacity: 0.06; transform: scale(0.9); }
+    }
+
+    @keyframes ringRotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
     /* ══════════════════════════════
@@ -570,16 +578,27 @@
 <!-- ════ HERO ════ -->
 <section class="hero">
   <div class="hero-left">
+
+    <!-- Pause icon — floating top-left, scaled to section -->
+    <svg class="pause-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Outer dashed ring — slow rotation -->
+      <circle class="ring-spin" cx="50" cy="50" r="47"
+        stroke="rgba(255,255,255,0.22)" stroke-width="0.8"
+        stroke-dasharray="6 5" stroke-linecap="round"/>
+      <!-- Mid ring -->
+      <circle cx="50" cy="50" r="41"
+        stroke="rgba(255,255,255,0.12)" stroke-width="0.6"/>
+      <!-- Inner filled circle -->
+      <circle cx="50" cy="50" r="35"
+        fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+      <!-- Pause bar left -->
+      <rect x="32" y="30" width="11" height="40" rx="5.5" fill="white"/>
+      <!-- Pause bar right -->
+      <rect x="57" y="30" width="11" height="40" rx="5.5" fill="white"/>
+    </svg>
+
     <div class="logo-wrap">
-      <div class="logo-top-row">
-        <span class="logo-main">لحظة</span>
-        <!-- Pause icon blinking -->
-        <svg class="pause-icon" width="48" height="48" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="26" cy="26" r="24.5" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" fill="rgba(255,255,255,0.06)"/>
-          <rect x="16" y="15" width="7" height="22" rx="3.5" fill="#ffffff"/>
-          <rect x="29" y="15" width="7" height="22" rx="3.5" fill="#ffffff"/>
-        </svg>
-      </div>
+      <span class="logo-main">لحظة</span>
       <span class="logo-dots">...</span>
     </div>
     <p class="hero-tagline">شيء ما على وشك أن يحدث</p>
